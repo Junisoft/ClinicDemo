@@ -1,0 +1,19 @@
+﻿using ClinicDemo.Core.Entities;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+
+namespace ClinicDemo.Core.Interfaces.Services
+{
+    public interface IDoctorService
+    {
+        Task<IEnumerable<Doctor>> GetDoctors();
+
+        Task<Doctor> GetDoctor(int id);
+
+        Task<bool> InsertDoctor(Doctor doctor);
+
+        Task<bool> UpdateDoctor(Doctor doctor);
+
+        Task<bool> DeleteDoctor(int id);
+    }
+}

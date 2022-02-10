@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="System.Data.SqlClient" Version="4.8.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ClinicDemo.Core\ClinicDemo.Core.csproj" />
+    <ProjectReference Include="..\ClinicDemo.Infrastructure\ClinicDemo.Infrastructure.csproj" />
+  </ItemGroup>
+
+
+</Project>
