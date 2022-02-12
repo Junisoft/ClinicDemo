@@ -37,7 +37,7 @@ namespace ClinicDemo.Core.Services
         {
             using (var context = _unitOfWork.Create())
             {
-                await context.Repositories.DoctorRepository.Insert(doctor);
+                await context.Repositories.DoctorRepository.Add(doctor);
                 await context.SaveChangesAsync();
 
                 return true;
@@ -59,7 +59,7 @@ namespace ClinicDemo.Core.Services
         {
             using (var context = _unitOfWork.Create())
             {
-                await context.Repositories.DoctorRepository.DeleteById(id);
+                await context.Repositories.DoctorRepository.Delete(id);
                 await context.SaveChangesAsync();
 
                 return true;

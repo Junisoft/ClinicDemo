@@ -1,6 +1,8 @@
-﻿using ClinicDemo.Core.Entities;
+﻿using ClinicDemo.Api.Responses;
+using ClinicDemo.Core.Entities;
 using ClinicDemo.Core.Interfaces.Services;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace ClinicDemo.Api.Controllers
@@ -19,14 +21,18 @@ namespace ClinicDemo.Api.Controllers
         [HttpGet]
         public async Task<IActionResult> Get()
         {
-            return Ok(await _doctorService.GetDoctors());
+            var result = await _doctorService.GetDoctors();
+            var response = new ApiResponse<IEnumerable<Doctor>>(result, true);
+            return Ok(response);
         }
 
         [HttpGet("{id}")]
         public async Task<IActionResult> Get(int id)
         {
-            var response = await _doctorService.GetDoctor(id);
-            if (response == null) { return NotFound(); }
+            var result = await _doctorService.GetDoctor(id);
+            if (result == null) { return NotFound(); }
+
+            var response = new ApiResponse<Doctor>(result, true);
 
             return Ok(response);
         }
@@ -34,20 +40,27 @@ namespace ClinicDemo.Api.Controllers
         [HttpPost]
         public async Task<IActionResult> Post([FromBody] Doctor doctor)
         {
-            return Ok(await _doctorService.InsertDoctor(doctor));
+            var result = await _doctorService.InsertDoctor(doctor);
+            var response = new ApiResponse<bool>(result, true);
+            return Ok(response);
         }
 
         [HttpPut("{id}")]
         public async Task<IActionResult> Put(int id, [FromBody] Doctor doctor)
         {
             doctor.Id = id;
-            return Ok(await _doctorService.UpdateDoctor(doctor));
+            var result = await _doctorService.UpdateDoctor(doctor);
+            var response = new ApiResponse<bool>(result, true);
+
+            return Ok(response);
         }
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
-            return Ok(await _doctorService.DeleteDoctor(id));
+            var result = await _doctorService.DeleteDoctor(id);
+            var response = new ApiResponse<bool>(result, true);
+            return Ok(response);
         }
     }
 }

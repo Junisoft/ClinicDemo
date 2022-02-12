@@ -18,7 +18,7 @@ namespace ClinicDemo.Infrastructure.Repositories
             this._transaction = transaction;
         }
 
-        public async Task<List<Doctor>> GetAll()
+        public async Task<IEnumerable<Doctor>> GetAll()
         {
             var command = CreateCommand("[dbo].[sp_GetAllDoctors]");
             command.CommandType = CommandType.StoredProcedure;
@@ -53,7 +53,7 @@ namespace ClinicDemo.Infrastructure.Repositories
             return response;
         }
 
-        public async Task Insert(Doctor doctor)
+        public async Task Add(Doctor doctor)
         {
             var command = CreateCommand("[dbo].[sp_InsertDoctor]");
             command.CommandType = CommandType.StoredProcedure;
@@ -76,7 +76,7 @@ namespace ClinicDemo.Infrastructure.Repositories
             await command.ExecuteNonQueryAsync();
         }
 
-        public async Task DeleteById(int Id)
+        public async Task Delete(int Id)
         {
             var command = CreateCommand("[dbo].[sp_DeleteDoctor]");
             command.CommandType = CommandType.StoredProcedure;
