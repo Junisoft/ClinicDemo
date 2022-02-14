@@ -11,5 +11,6 @@ namespace ClinicDemo.Core.DTOs
         public string Lastname { get; set; }
         public string Email { get; set; }
         public int SpecialtyId { get; set; }
+        public bool IsDeleted { get; set; }
     }
 }

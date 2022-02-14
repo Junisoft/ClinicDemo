@@ -18,10 +18,12 @@ namespace ClinicDemo.Infrastructure.Repositories
             this._transaction = transaction;
         }
 
-        public async Task<IEnumerable<Doctor>> GetAll()
+        public async Task<IEnumerable<Doctor>> GetAll(int pageNumber = 1, int pageSize = 10)
         {
             var command = CreateCommand("[dbo].[sp_GetAllDoctors]");
             command.CommandType = CommandType.StoredProcedure;
+            command.Parameters.Add(new SqlParameter("@PageNumber", pageNumber));
+            command.Parameters.Add(new SqlParameter("@PageSize", pageSize));
             var response = new List<Doctor>();
 
             using (var reader = await command.ExecuteReaderAsync())
@@ -35,11 +37,11 @@ namespace ClinicDemo.Infrastructure.Repositories
             return response;
         }
 
-        public async Task<Doctor> GetById(int Id)
+        public async Task<Doctor> GetById(int id)
         {
             var command = CreateCommand("[dbo].[sp_GetDoctorById]");
             command.CommandType = CommandType.StoredProcedure;
-            command.Parameters.Add(new SqlParameter("@Id", Id));
+            command.Parameters.Add(new SqlParameter("@Id", id));
             Doctor response = null;
 
             using (var reader = await command.ExecuteReaderAsync())
@@ -93,6 +95,15 @@ namespace ClinicDemo.Infrastructure.Repositories
                 Lastname = reader["Lastname"].ToString(),
                 Email = reader["Email"].ToString()
             };
+        }
+
+        public async Task EnableDisableDoctor(int id, bool isActive)
+        {
+            var command = CreateCommand("[dbo].[sp_EnableDisableDoctor]");
+            command.CommandType = CommandType.StoredProcedure;
+            command.Parameters.Add(new SqlParameter("@DoctorId", id));
+            command.Parameters.Add(new SqlParameter("@IsActive", isActive));
+            await command.ExecuteNonQueryAsync();
         }
     }
 }

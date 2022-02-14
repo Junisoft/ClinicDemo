@@ -8,5 +8,6 @@ namespace ClinicDemo.Core.Interfaces.UnitOfWork
     {
         //List of repositories
         IDoctorRepository DoctorRepository { get; }
+        ISpecialtyRepository SpecialtyRepository { get; }
     }
 }

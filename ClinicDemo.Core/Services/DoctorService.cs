@@ -1,6 +1,7 @@
 ﻿using ClinicDemo.Core.Entities;
 using ClinicDemo.Core.Interfaces.Services;
 using ClinicDemo.Core.Interfaces.UnitOfWork;
+using ClinicDemo.Core.QueryFilters;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -25,11 +26,14 @@ namespace ClinicDemo.Core.Services
             }
         }
 
-        public async Task<IEnumerable<Doctor>> GetDoctors()
+        public async Task<IEnumerable<Doctor>> GetDoctors(DoctorQueryFilter filters)
         {
             using (var context = _unitOfWork.Create())
             {
-                return await context.Repositories.DoctorRepository.GetAll();
+                filters.PageNumber = filters.PageNumber == 0 ? 1 : filters.PageNumber;
+                filters.PageSize = filters.PageSize == 0 ? 10 : filters.PageSize;
+
+                return await context.Repositories.DoctorRepository.GetAll(filters.PageNumber, filters.PageSize);
             }
         }
 
@@ -60,6 +64,17 @@ namespace ClinicDemo.Core.Services
             using (var context = _unitOfWork.Create())
             {
                 await context.Repositories.DoctorRepository.Delete(id);
+                await context.SaveChangesAsync();
+
+                return true;
+            }
+        }
+
+        public async Task<bool> EnableDisableDoctor(int id, bool isActive)
+        {
+            using (var context = _unitOfWork.Create())
+            {
+                await context.Repositories.DoctorRepository.EnableDisableDoctor(id, isActive);
                 await context.SaveChangesAsync();
 
                 return true;
