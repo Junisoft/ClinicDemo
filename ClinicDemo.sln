@@ -9,8 +9,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ClinicDemo.Core", "ClinicDe
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ClinicDemo.Infrastructure", "ClinicDemo.Infrastructure\ClinicDemo.Infrastructure.csproj", "{C3AB267B-75A6-4AE9-B0C9-FECED71C6ABA}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Scripts", "Scripts", "{303AA3DA-D5EF-41D5-9A1F-3687A1CFFB5C}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

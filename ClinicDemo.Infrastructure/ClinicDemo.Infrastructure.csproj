@@ -14,4 +14,8 @@
     <ProjectReference Include="..\ClinicDemo.Core\ClinicDemo.Core.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Scripts\" />
+  </ItemGroup>
+
 </Project>
